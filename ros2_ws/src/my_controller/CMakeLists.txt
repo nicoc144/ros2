@@ -7,9 +7,24 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+
+# Create an execuable for nodes
+add_executable(my_cpp_node src/my_node.cpp)
+
+# Link the dependencies format: <execuable name> <dependency1> <dependency2> ...
+target_link_libraries ( my_cpp_node
+  PUBLIC rclcpp::rclcpp
+)
+
+# Specify where to put the target executables
+install (
+  TARGETS my_cpp_node
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
