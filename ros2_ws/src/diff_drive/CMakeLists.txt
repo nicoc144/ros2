@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(diff_drive_controller)
+project(diff_drive)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,24 +7,50 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+# Modified ------------------------------------------------------------
+
+# Find dependencies
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
 # Create an execuable for nodes
-add_executable(my_cpp_node src/my_node.cpp)
+add_executable(velop src/velo_publisher.cpp) # Publisher node for velocity
+add_executable(velos src/velo_subscriber.cpp) # Same situation but subscriber
 
 # Link the dependencies format: <execuable name> <dependency1> <dependency2> ...
-target_link_libraries ( my_cpp_node
-  PUBLIC rclcpp::rclcpp
+
+# IMPORTANT TO AVOID CONFUSION: ${geometry_msgs_TARGETS} simplifies to INTERFACE
+# targets, not real libraries. The file "geometry_msgs/msg/Twist.msg" is a file
+# for data description and not behavior, and does not produce an .so object file.
+
+target_link_libraries (
+  velop PUBLIC
+  rclcpp::rclcpp
+  ${geometry_msgs_TARGETS}
+)
+
+target_link_libraries (
+  velos PUBLIC
+  rclcpp::rclcpp
+  ${geometry_msgs_TARGETS}
 )
 
 # Specify where to put the target executables
 install (
-  TARGETS my_cpp_node
+  TARGETS velop velos
   DESTINATION lib/${PROJECT_NAME}
 )
+
+# install (
+#  DIRECTORY launch config
+#  DESTINATION share/${PROJECT_NAME}
+# )
+
+# ---------------------------------------------------------------------
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
