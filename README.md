@@ -1,7 +1,7 @@
 # ROS2 + Gazebo Project 
 
 
-**Instructions to install ROS2 deb packages on Ubuntu**\ 
+**Instructions to install ROS2 deb packages on Ubuntu**  
 LINK: [https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debs.html](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debs.html)
 
 **Install the build tool for ROS2**

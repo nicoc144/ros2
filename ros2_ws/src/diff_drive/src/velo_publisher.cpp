@@ -4,7 +4,13 @@
 class VeloPublisher : public rclcpp::Node {
 	public:
 		VeloPublisher() : Node("velocity_pub") {
-			publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("topic", 1);
+			
+			// This create_publisher member function takes Twist as a template parameter and sets it
+			// as the message type. The topic name specifies the communication channel that this
+			// node will communicate on. The second parameter is the queue size, mostly important 
+			// when the publisher publishes faster than the subscriber can recieve.
+
+			publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("topic_vel", 1);
 			timer_ = this->create_wall_timer(
 				std::chrono::milliseconds(500),
 				std::bind(&VeloPublisher::velo_callback, this)
