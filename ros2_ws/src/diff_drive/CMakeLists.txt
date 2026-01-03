@@ -49,7 +49,6 @@ install (
 
 install (
   DIRECTORY
-    urdf
     # meshes
     models
     worlds
