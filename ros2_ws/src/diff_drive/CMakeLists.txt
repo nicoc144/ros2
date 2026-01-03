@@ -41,14 +41,22 @@ target_link_libraries (
 
 # Specify where to put the target executables
 install (
-  TARGETS velop velos
+  TARGETS 
+    velop 
+    velos
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# install (
-#  DIRECTORY launch config
-#  DESTINATION share/${PROJECT_NAME}
-# )
+install (
+  DIRECTORY
+    urdf
+    # meshes
+    models
+    worlds
+    launch 
+    config
+  DESTINATION share/${PROJECT_NAME}
+)
 
 # ---------------------------------------------------------------------
 

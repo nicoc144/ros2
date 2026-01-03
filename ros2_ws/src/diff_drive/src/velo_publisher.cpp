@@ -4,7 +4,7 @@
 class VeloPublisher : public rclcpp::Node {
 	public:
 		VeloPublisher() : Node("velocity_pub") {
-			
+
 			// This create_publisher member function takes Twist as a template parameter and sets it
 			// as the message type. The topic name specifies the communication channel that this
 			// node will communicate on. The second parameter is the queue size, mostly important 
@@ -24,6 +24,9 @@ class VeloPublisher : public rclcpp::Node {
 			message.linear.x = 1.1;
 			message.linear.y = 1.2;
 			message.linear.z = 1.3;
+			message.angular.x = 0;
+			message.angular.y = 0;
+			message.angular.z = 0;
 			RCLCPP_INFO(this->get_logger(), "Publishing: %lf, %lf, %lf",
 				message.linear.x, message.linear.y, message.linear.z);
 			publisher_->publish(message);

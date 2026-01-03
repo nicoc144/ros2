@@ -15,7 +15,7 @@
  <!-- MODIFIED ========================================================== -->
 
   <!--
-    This is one of the two essensial manifest files (CMakeList is the other one):
+    This 'package.xml' is one of the two essensial manifest files (CMakeList is the other one):
     1. Provides info about the package for documentation
     2. Helps ROS2 install missing libraries/dependencies from the internet using rosdep, good for portability
     3. Tells ROS which build system to use (C++ package, Python package, etc...)
