@@ -21,9 +21,9 @@ class VeloPublisher : public rclcpp::Node {
 		void velo_callback() {
 			// Twist ia a message type for expressing velocity linear/angular
 			auto message = geometry_msgs::msg::Twist(); 
-			message.linear.x = 1.1;
-			message.linear.y = 1.2;
-			message.linear.z = 1.3;
+			message.linear.x = 0.5;
+			message.linear.y = 0;
+			message.linear.z = 0;
 			message.angular.x = 0;
 			message.angular.y = 0;
 			message.angular.z = 0;

@@ -5,10 +5,13 @@
     This sdf file is adapted from the Gazebo diff_drive plugin demo
     '/opt/ros/kilted/opt/gz_sim_vendor/share/gz/gz-sim9/worlds/diff_drive.sdf'
 
+    NOTE: In order to have non-primitive models, a 'meshes' folder is required.
+    Boxes, spheres, and cylinders, for example, are considered primitive.
+
 -->
 
 <sdf version="1.6">
-    <model name='vehicle_blue'>
+    <model name='diff_drive_blu'>
       <pose>0 0 0 0 0 0</pose>
 
       <link name='chassis'>
@@ -208,22 +211,63 @@
         <child>caster</child>
       </joint>
 
+      <!--
+        Gazebo plugin for differential drive bot
+      -->
       <plugin
         filename="gz-sim-diff-drive-system"
         name="gz::sim::systems::DiffDrive">
+
+        <!--
+          Specifies the joints that control the left and right wheels
+        -->
         <left_joint>left_wheel_joint</left_joint>
         <right_joint>right_wheel_joint</right_joint>
+
+        <!--
+          Distance between the two wheels of the robot
+        -->
         <wheel_separation>1.25</wheel_separation>
+
+        <!--
+          Radius of the wheels (important for computing rotation speed)
+        -->
         <wheel_radius>0.3</wheel_radius>
+
+        <!--
+          How often the plugin publishes position and orientation (sec)
+        -->
         <odom_publish_frequency>1</odom_publish_frequency>
+
+        <!--
+          Lin accel is measured in m/s^2
+        -->
         <max_linear_acceleration>1</max_linear_acceleration>
         <min_linear_acceleration>-1</min_linear_acceleration>
+
+        <!--
+          Ang accel is measured in radians/s^2
+        -->
         <max_angular_acceleration>2</max_angular_acceleration>
         <min_angular_acceleration>-2</min_angular_acceleration>
+
+        <!--
+          Lin vel is measured in m/s
+        -->
         <max_linear_velocity>0.5</max_linear_velocity>
         <min_linear_velocity>-0.5</min_linear_velocity>
+
+        <!--
+          Ang vel is measured in radians/s
+        -->
         <max_angular_velocity>1</max_angular_velocity>
         <min_angular_velocity>-1</min_angular_velocity>
+
+        <!--
+          Specify the topic for communication
+        -->
+        <topic>/model/diff_drive_blu/cmd_vel</topic>
+
       </plugin>
 
     </model>
