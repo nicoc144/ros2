@@ -14,6 +14,14 @@
     <model name='diff_drive_blu'>
       <pose>0 0 0 0 0 0</pose>
 
+      <!--
+        Add frame for the LiDAR (basically just defines where the sensor is
+        and how it's oriented)
+      -->
+      <frame name="lidar_frame" attached_to='chassis'>
+        <pose>0.8 0 0.5 0 0 0</pose>
+      </frame>
+
       <link name='chassis'>
         <pose>-0.151427 -0 0.175 0 -0 0</pose>
         <inertial>
@@ -34,8 +42,8 @@
             </box>
           </geometry>
           <material>
-            <ambient>0.5 0.5 1.0 1</ambient>
-            <diffuse>0.5 0.5 1.0 1</diffuse>
+            <ambient>0.2 0.5 1.0 1</ambient>
+            <diffuse>0.2 0.5 1.0 1</diffuse>
             <specular>0.0 0.0 1.0 1</specular>
           </material>
         </visual>
@@ -46,6 +54,38 @@
             </box>
           </geometry>
         </collision>
+        <!--
+          NOTE: 
+        -->
+        <sensor name='gpu_lidar' type='gpu_lidar'>"
+          <pose relative_to='lidar_frame'>0 0 0 0 0 0</pose>
+          <topic>lidar</topic>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>640</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.396263</min_angle>
+                <max_angle>1.396263</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <resolution>0.01</resolution>
+                <min_angle>0</min_angle>
+                <max_angle>0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>10.0</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <topic>/model/diff_drive_blu/chassis_lidar</topic>
+          <always_on>1</always_on>
+          <visualize>true</visualize>
+        </sensor>
       </link>
 
       <link name='left_wheel'>
@@ -63,21 +103,23 @@
         </inertial>
         <visual name='visual'>
           <geometry>
-            <sphere>
+            <cylinder>
               <radius>0.3</radius>
-            </sphere>
+              <length>0.3</length>
+            </cylinder>
           </geometry>
           <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
+            <ambient>1.0 1.0 1.0 1</ambient>
+            <diffuse>1.0 1.0 1.0 1</diffuse>
+            <specular>1.0 1.0 1.0 1</specular>
           </material>
         </visual>
         <collision name='collision'>
           <geometry>
-            <sphere>
+            <cylinder>
               <radius>0.3</radius>
-            </sphere>
+              <length>0.3</length>
+            </cylinder>
           </geometry>
           <surface>
             <friction>
@@ -113,21 +155,23 @@
         </inertial>
         <visual name='visual'>
           <geometry>
-            <sphere>
+            <cylinder>
               <radius>0.3</radius>
-            </sphere>
+              <length>0.3</length>
+            </cylinder>
           </geometry>
           <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
+            <ambient>1.0 1.0 1.0 1</ambient>
+            <diffuse>1.0 1.0 1.0 1</diffuse>
+            <specular>1.0 1.0 1.0 1</specular>
           </material>
         </visual>
         <collision name='collision'>
           <geometry>
-            <sphere>
+            <cylinder>
               <radius>0.3</radius>
-            </sphere>
+              <length>0.3</length>
+            </cylinder>
           </geometry>
           <surface>
             <friction>
@@ -168,9 +212,9 @@
             </sphere>
           </geometry>
           <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
+            <ambient>0.0 0.0 0.0 1</ambient>
+            <diffuse>0.0 0.0 0.0 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
           </material>
         </visual>
         <collision name='collision'>
@@ -254,8 +298,8 @@
         <!--
           Lin vel is measured in m/s
         -->
-        <max_linear_velocity>0.5</max_linear_velocity>
-        <min_linear_velocity>-0.5</min_linear_velocity>
+        <max_linear_velocity>1.0</max_linear_velocity>
+        <min_linear_velocity>-1.0</min_linear_velocity>
 
         <!--
           Ang vel is measured in radians/s

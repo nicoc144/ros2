@@ -10,7 +10,7 @@ class VeloPublisher : public rclcpp::Node {
 			// node will communicate on. The second parameter is the queue size, mostly important 
 			// when the publisher publishes faster than the subscriber can recieve.
 
-			publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("topic_vel", 1);
+			publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/model/diff_drive_blu/cmd_vel", 1);
 			timer_ = this->create_wall_timer(
 				std::chrono::milliseconds(500),
 				std::bind(&VeloPublisher::velo_callback, this)
@@ -21,7 +21,7 @@ class VeloPublisher : public rclcpp::Node {
 		void velo_callback() {
 			// Twist ia a message type for expressing velocity linear/angular
 			auto message = geometry_msgs::msg::Twist(); 
-			message.linear.x = 0.5;
+			message.linear.x = 1;
 			message.linear.y = 0;
 			message.linear.z = 0;
 			message.angular.x = 0;
