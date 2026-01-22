@@ -2,7 +2,7 @@
 
 <!--
 
-    This sdf file is adapted from the Gazebo diff_drive plugin demo
+    This sdf file is adapted from the Gazebo diff_drive plugin demo found at
     '/opt/ros/kilted/opt/gz_sim_vendor/share/gz/gz-sim9/worlds/diff_drive.sdf'
 
     NOTE: In order to have non-primitive models, a 'meshes' folder is required.
@@ -15,12 +15,70 @@
       <pose>0 0 0 0 0 0</pose>
 
       <!--
-        Add frame for the LiDAR (basically just defines where the sensor is
-        and how it's oriented)
+        Add frame for the LiDAR 
       -->
-      <frame name="lidar_frame" attached_to='chassis'>
-        <pose>0.8 0 0.5 0 0 0</pose>
-      </frame>
+
+      <link name="lidar_frame">
+        <pose relative_to='chassis'>0.8 0 0.5 0 0 0</pose>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>0.001</ixx>
+            <iyy>0.001</iyy>
+            <izz>0.001</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+          </material>
+        </visual>
+        <sensor name='lidar' type='lidar'>
+          <pose relative_to='lidar_frame'>0 0 0 0 0 0</pose>
+          <visualize>true</visualize>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>640</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.396263</min_angle>
+                <max_angle>1.396263</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <resolution>0.01</resolution>
+                <min_angle>0</min_angle>
+                <max_angle>0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>30.0</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <topic>/model/diff_drive_blu/chassis_lidar/forward</topic>
+          <gz_frame_id>diff_drive_blu/lidar_frame</gz_frame_id>
+          <always_on>true</always_on>
+        </sensor>
+      </link>
+
+      <!-- 
+        Add the LiDAR as a join to the chassis
+      -->
+
+      <joint name='lidar_joint' type='fixed'>
+        <parent>chassis</parent>
+        <child>lidar_frame</child>
+      </joint> 
 
       <link name='chassis'>
         <pose>-0.151427 -0 0.175 0 -0 0</pose>
@@ -54,38 +112,6 @@
             </box>
           </geometry>
         </collision>
-        <!--
-          NOTE: 
-        -->
-        <sensor name='gpu_lidar' type='gpu_lidar'>"
-          <pose relative_to='lidar_frame'>0 0 0 0 0 0</pose>
-          <topic>lidar</topic>
-          <update_rate>10</update_rate>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>640</samples>
-                <resolution>1</resolution>
-                <min_angle>-1.396263</min_angle>
-                <max_angle>1.396263</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <resolution>0.01</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.08</min>
-              <max>10.0</max>
-              <resolution>0.01</resolution>
-            </range>
-          </ray>
-          <topic>/model/diff_drive_blu/chassis_lidar</topic>
-          <always_on>1</always_on>
-          <visualize>true</visualize>
-        </sensor>
       </link>
 
       <link name='left_wheel'>

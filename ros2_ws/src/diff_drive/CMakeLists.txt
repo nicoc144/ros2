@@ -16,10 +16,12 @@ find_package(ament_cmake REQUIRED)
 # Find dependencies
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # Create an execuable for nodes
 add_executable(velop src/velo_publisher.cpp) # Publisher node for velocity
 add_executable(velos src/velo_subscriber.cpp) # Same situation but subscriber
+add_executable(lidars src/lidar_subscriber.cpp)
 
 # Link the dependencies format: <execuable name> <dependency1> <dependency2> ...
 
@@ -39,11 +41,18 @@ target_link_libraries (
   ${geometry_msgs_TARGETS}
 )
 
+target_link_libraries (
+  lidars PUBLIC
+  rclcpp::rclcpp
+  ${sensor_msgs_TARGETS}
+)
+
 # Specify where to put the target executables
 install (
   TARGETS 
     velop 
     velos
+    lidars
   DESTINATION lib/${PROJECT_NAME}
 )
 

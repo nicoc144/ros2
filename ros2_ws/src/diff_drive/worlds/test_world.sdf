@@ -2,7 +2,7 @@
 
 <!--
 
-    This sdf file is adapted from the Gazebo diff_drive plugin demo
+    This sdf file is adapted from the Gazebo diff_drive plugin demo found at
     '/opt/ros/kilted/opt/gz_sim_vendor/share/gz/gz-sim9/worlds/diff_drive.sdf'
 
 -->
@@ -74,6 +74,48 @@
             </material>
             </visual>
         </link>
+        </model>
+
+        <model name="box">
+            <pose>5 -0.5 0.75 0 0 -0.2</pose>
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>1.5 1.5 1.5</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>1.5 1.5 1.5</size>
+                        </box>
+                    </geometry>
+                </visual>
+            </link>
+        </model>
+
+        <model name="box1">
+            <pose>9 2.5 0.75 0 0 0.3</pose>
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>1.5 1.5 1.5</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>1.5 1.5 1.5</size>
+                        </box>
+                    </geometry>
+                </visual>
+            </link>
         </model>
     </world>
 </sdf>

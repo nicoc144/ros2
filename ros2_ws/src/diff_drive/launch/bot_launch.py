@@ -61,21 +61,13 @@ def generate_launch_description():
         # arguments: [topic_name@ROS2_msg_type@gz_msg_type]
         # output: Where the log output is printed for the node
 
-        # Bridge for robot movement
+        # Bridge for robot movement / LiDAR
 
         Node(
             package = 'ros_gz_bridge',
             executable = 'parameter_bridge',
-            arguments = ['/model/diff_drive_blu/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist'],
-            output = 'screen'
-        ),
-
-        # Bridge for lidar
-        
-        Node(
-            package = 'ros_gz_bridge',
-            executable = 'parameter_bridge',
-            arguments = ['/model/diff_drive_blu/chassis_lidar@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan'],
+            arguments = ['/model/diff_drive_blu/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+                        '/model/diff_drive_blu/chassis_lidar/forward@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan'],
             output = 'screen'
         )
     ])

@@ -27,8 +27,8 @@ class VeloPublisher : public rclcpp::Node {
 			message.angular.x = 0;
 			message.angular.y = 0;
 			message.angular.z = 0;
-			RCLCPP_INFO(this->get_logger(), "Publishing: %lf, %lf, %lf",
-				message.linear.x, message.linear.y, message.linear.z);
+			// RCLCPP_INFO(this->get_logger(), "Publishing: %lf, %lf, %lf",
+			// 	message.linear.x, message.linear.y, message.linear.z);
 			publisher_->publish(message);
 		}
 		rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;

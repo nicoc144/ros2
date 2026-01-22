@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/twist.hpp"
-using std::placeholders::_1;
+//using std::placeholders::_1;
 
 class VeloSubscriber : public rclcpp::Node {
 	public:
@@ -25,12 +25,12 @@ class VeloSubscriber : public rclcpp::Node {
 		
 	private:
 		void topic_callback(const geometry_msgs::msg::Twist::SharedPtr message) const {
-			RCLCPP_INFO(this->get_logger(), "Recieved X:%lf, Y:%lf, Z:%lf",
-				// "message" is a pointer to the data, use arrow operator to dereference
-				message->linear.x,
-				message->linear.y,
-				message->linear.z
-			);
+			// RCLCPP_INFO(this->get_logger(), "Recieved X:%lf, Y:%lf, Z:%lf",
+			// 	// "message" is a pointer to the data, use arrow operator to dereference
+			// 	message->linear.x,
+			// 	message->linear.y,
+			// 	message->linear.z
+			// );
 		}
 		rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscriber_;
 };
